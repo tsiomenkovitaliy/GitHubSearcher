@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 struct GitHubSevice {
     private let queueCount = 2
-    private let perPage = 2
+    private let perPage = 15
     
     func searchRepositories(searchText:String, completion: @escaping ([StarItem], Error?)->Void){
         var items = [Item]()
