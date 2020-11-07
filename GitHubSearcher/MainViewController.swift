@@ -1,17 +1,45 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MainViewController: UIViewController{
     var items = [Item]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    var searchActive : Bool = false
     var gitHubSevice = GitHubSevice()
+    let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        searchBar.delegate = self
+        searchBar
+            .rx
+            .text
+            .throttle(1, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .filter { $0!.count > 2 }
+            .subscribe(onNext: { [unowned self] (query) in
+                gitHubSevice.searchRepositories(searchText: query!) { (data, error) in
+                    if error != nil{
+                        DispatchQueue.main.async {
+                            presentAler(title: "Error", message: error.debugDescription)
+                        }
+                    }
+                    if let data = data{
+                        self.items = data
+                        self.tableView.reloadData()
+                    }
+                }
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
+    func presentAler(title:String,message:String){
+        var dialogMessage = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default)
+        dialogMessage.addAction(ok)
+        self.present(dialogMessage, animated: true, completion: nil)
     }
 }
 extension MainViewController: UITableViewDelegate, UITableViewDataSource{
@@ -24,16 +52,5 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text =  items[indexPath.item].name
         cell.detailTextLabel?.text = String(items[indexPath.item].stargazersCount)
         return cell
-    }
-}
-extension MainViewController : UISearchBarDelegate{
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count>2{
-            gitHubSevice.searchRepositories(searchText: searchBar.text!) { (data, error) in
-                self.items = data
-                self.tableView.reloadData()
-            }
-        }
     }
 }

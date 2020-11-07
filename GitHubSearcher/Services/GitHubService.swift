@@ -4,7 +4,7 @@ struct GitHubSevice {
     private let queueCount = 2
     private let perPage = 15
     
-    func searchRepositories(searchText:String, completion: @escaping ([Item], Error?)->Void){
+    func searchRepositories(searchText:String, completion: @escaping ([Item]?, Error?)->Void){
         var items = [Item]()
         let fetchGroup = DispatchGroup()
         for i in 1 ... queueCount {
@@ -19,7 +19,7 @@ struct GitHubSevice {
                 }
                 else
                 {
-                    print("Bad response")
+                    completion(nil,response.error)
                 }
                 fetchGroup.leave()
             }

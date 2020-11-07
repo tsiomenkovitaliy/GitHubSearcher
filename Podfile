@@ -7,4 +7,6 @@ target 'GitHubSearcher' do
 
   # Pods for GitHubSearcher
 pod 'Alamofire'
+pod "RxSwift"
+pod "RxCocoa"
 end
