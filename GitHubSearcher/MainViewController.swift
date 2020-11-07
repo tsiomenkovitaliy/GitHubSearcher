@@ -16,7 +16,7 @@ class MainViewController: UIViewController{
         searchBar
             .rx
             .text
-            .throttle(1, scheduler: MainScheduler.instance)
+            .debounce(.seconds(500), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .filter { $0!.count > 2 }
             .subscribe(onNext: { [unowned self] (query) in
