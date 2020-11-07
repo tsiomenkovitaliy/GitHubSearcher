@@ -1,9 +1,3 @@
-//
-//  DictionaryHalper.swift
-//  GitHubSearcher
-//
-//  Created by admin on 05.11.2020.
-//
 
 import Foundation
 

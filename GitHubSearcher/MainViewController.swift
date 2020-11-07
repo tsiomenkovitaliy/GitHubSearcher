@@ -1,7 +1,7 @@
 import UIKit
 
 class MainViewController: UIViewController{
-    var items = [StarItem]()
+    var items = [Item]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -21,8 +21,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
-        cell.textLabel?.text =  items[indexPath.item].item?.name
-        cell.detailTextLabel?.text = String(items[indexPath.item].star!)
+        cell.textLabel?.text =  items[indexPath.item].name
+        cell.detailTextLabel?.text = String(items[indexPath.item].stargazersCount)
         return cell
     }
 }
