@@ -3,9 +3,9 @@ import Alamofire
 struct GitHubSevice {
     private let queueCount = 2
     private let perPage = 15
-    
     func searchRepositories(searchText:String, completion: @escaping ([Item]?, Error?)->Void){
         var items = [Item]()
+        var storedError : Error?
         let dispatchGroup = DispatchGroup()
         for i in 1 ... queueCount {
             let queue = DispatchQueue(label: "Queue \(i)", qos: .userInitiated, attributes: .concurrent)
@@ -17,7 +17,7 @@ struct GitHubSevice {
                     case .success(let value):
                         items.append(contentsOf: value.items)
                     case .failure(let error):
-                        completion(nil,error)
+                        storedError = error
                     }
                 dispatchGroup.leave()
             }
@@ -26,7 +26,7 @@ struct GitHubSevice {
             items.sort {
                 $0.stargazersCount > $1.stargazersCount
             }
-            completion(items, nil)
+            completion(items, storedError)
         }
     }
 }

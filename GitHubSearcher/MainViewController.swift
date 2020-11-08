@@ -9,6 +9,7 @@ class MainViewController: UIViewController{
     @IBOutlet weak var searchBar: UISearchBar!
     var gitHubSevice = GitHubSevice()
     let disposeBag = DisposeBag()
+    private var lastValidQuery = String()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -20,23 +21,29 @@ class MainViewController: UIViewController{
             .distinctUntilChanged()
             .filter { $0!.count > 2 }
             .subscribe(onNext: { [unowned self] (query) in
-                gitHubSevice.searchRepositories(searchText: query!) { (data, error) in
-                    if error != nil{
-                        DispatchQueue.main.async {
-                            presentAler(title: "Error", message: error.debugDescription)
+                if lastValidQuery != query{
+                    gitHubSevice.searchRepositories(searchText: query!) { (data, error) in
+                        if error != nil{
+                            DispatchQueue.main.async {
+                                presentAler(title: "Error", message: error.debugDescription)
+                            }
                         }
-                    }
-                    if let data = data{
-                        self.items = data
-                        self.tableView.reloadData()
+                        else
+                        {
+                            lastValidQuery = query!
+                            if let data = data {
+                                self.items = data
+                                self.tableView.reloadData()
+                            }
+                        }
                     }
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
     
     func presentAler(title:String,message:String){
-        var dialogMessage = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let dialogMessage = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default)
         dialogMessage.addAction(ok)
         self.present(dialogMessage, animated: true, completion: nil)
