@@ -14,8 +14,9 @@
 		8497586F255264960018761E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497586D255264960018761E /* Main.storyboard */; };
 		849758712552649B0018761E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 849758702552649B0018761E /* Assets.xcassets */; };
 		849758742552649B0018761E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849758722552649B0018761E /* LaunchScreen.storyboard */; };
+		849C42DA2557B68000771439 /* Repositoris.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C42D92557B68000771439 /* Repositoris.swift */; };
+		849C42DE2557B71800771439 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C42DD2557B71800771439 /* Item.swift */; };
 		84F7541925529A99007E0EB9 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7541825529A99007E0EB9 /* GitHubService.swift */; };
-		84F754242552A80A007E0EB9 /* Repositoris.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F754212552A80A007E0EB9 /* Repositoris.swift */; };
 		9631C69DE678AE95221AB4A4 /* Pods_GitHubSearcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CECD395895E33D4C46F0FF4 /* Pods_GitHubSearcher.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +32,9 @@
 		849758702552649B0018761E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		849758732552649B0018761E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		849758752552649B0018761E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849C42D92557B68000771439 /* Repositoris.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositoris.swift; sourceTree = "<group>"; };
+		849C42DD2557B71800771439 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		84F7541825529A99007E0EB9 /* GitHubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
-		84F754212552A80A007E0EB9 /* Repositoris.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repositoris.swift; path = ../../../../Downloads/Source_file_JsonCafe/Repositoris.swift; sourceTree = "<group>"; };
 		ECA87C26B08DA9FBCE629A74 /* Pods-GitHubSearcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubSearcher.release.xcconfig"; path = "Target Support Files/Pods-GitHubSearcher/Pods-GitHubSearcher.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,7 +104,8 @@
 		8497587F25527C050018761E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				84F754212552A80A007E0EB9 /* Repositoris.swift */,
+				849C42D92557B68000771439 /* Repositoris.swift */,
+				849C42DD2557B71800771439 /* Item.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,11 +242,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8424F8DD255461C2004BA98A /* DictionaryHalper.swift in Sources */,
-				84F754242552A80A007E0EB9 /* Repositoris.swift in Sources */,
 				84F7541925529A99007E0EB9 /* GitHubService.swift in Sources */,
 				8497586C255264960018761E /* MainViewController.swift in Sources */,
 				84975868255264960018761E /* AppDelegate.swift in Sources */,
+				849C42DE2557B71800771439 /* Item.swift in Sources */,
 				8497586A255264960018761E /* SceneDelegate.swift in Sources */,
+				849C42DA2557B68000771439 /* Repositoris.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
