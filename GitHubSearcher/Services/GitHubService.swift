@@ -6,25 +6,23 @@ struct GitHubSevice {
     
     func searchRepositories(searchText:String, completion: @escaping ([Item]?, Error?)->Void){
         var items = [Item]()
-        let fetchGroup = DispatchGroup()
+        let dispatchGroup = DispatchGroup()
         for i in 1 ... queueCount {
             let queue = DispatchQueue(label: "Queue \(i)", qos: .userInitiated, attributes: .concurrent)
-            fetchGroup.enter()
+            dispatchGroup.enter()
             let url = "https://api.github.com/search/repositories?q=\(searchText)&per_page=\(perPage)&page=\(i)"
             AF.request(url).validate().responseDecodable(of: Repositoris.self,queue: queue) {
                 (response) in
-                if let repositories = response.value  {
-                    items.append(contentsOf: repositories.items)
-                    print(queue.label)
-                }
-                else
-                {
-                    completion(nil,response.error)
-                }
-                fetchGroup.leave()
+                switch response.result {
+                    case .success(let value):
+                        items.append(contentsOf: value.items)
+                    case .failure(let error):
+                        completion(nil,error)
+                    }
+                dispatchGroup.leave()
             }
         }
-        fetchGroup.notify(queue: .main){
+        dispatchGroup.notify(queue: .main){
             items.sort {
                 $0.stargazersCount > $1.stargazersCount
             }
