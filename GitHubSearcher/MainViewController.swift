@@ -24,9 +24,7 @@ class MainViewController: UIViewController{
                 if lastValidQuery != query{
                     gitHubSevice.searchRepositories(searchText: query!) { (data, error) in
                         if error != nil{
-                            DispatchQueue.main.async {
-                                presentAler(title: "Error", message: error.debugDescription)
-                            }
+                            presentAler(title: "Error", message: error.debugDescription)
                         }
                         else
                         {
